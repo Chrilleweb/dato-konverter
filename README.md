@@ -12,7 +12,7 @@ Dette projekt konverterer en JavaScript dato til UTC-tidszonen og formaterer dat
 
 1. Klon repository:
     ```sh
-    git clone https://github.com/Chrilleweb/dato-konverter.git
+    git clone https://github.com/dit-brugernavn/dato-konverter.git
     ```
 2. Naviger til projektmappen:
     ```sh
