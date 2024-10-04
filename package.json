@@ -7,5 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Chrilleweb",
-  "license": "ISC"
+  "license": "ISC",
+  "keywords": ["dato", "konverter", "utc", "format"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Chrilleweb/dato-konverter"
+  },
+  "engines": {
+    "node": ">=14.x"
+  }
 }
