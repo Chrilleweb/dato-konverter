@@ -1,0 +1,11 @@
+{
+  "name": "dato-konverter",
+  "version": "1.0.0",
+  "description": "Denne pakke konverterer en JavaScript dato til UTC-tidszonen og formaterer datoen i et læsbart dansk format som '13. okt. 2024 kl.15:54'. Den tager en standard JavaScript Date-objekt som input og returnerer en streng med datoen og tiden i UTC, formateret som dag, måned, år og klokkeslæt.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chrilleweb",
+  "license": "ISC"
+}
