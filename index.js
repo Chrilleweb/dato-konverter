@@ -12,7 +12,7 @@ function konveterDatotilUTC(date) {
     const hours = String(utcDate.getUTCHours()).padStart(2, '0');
     const minutes = String(utcDate.getUTCMinutes()).padStart(2, '0');
 
-    return `${day}. ${month} ${year} kl.${hours}:${minutes}`;
+    return `${day}. ${month} ${year} kl. ${hours}:${minutes}`;
 }
 
 module.exports = konveterDatotilUTC;
