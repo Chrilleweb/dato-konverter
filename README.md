@@ -10,7 +10,7 @@ Dette projekt konverterer en JavaScript dato til UTC-tidszonen og formaterer dat
 
 ## Installation
 
-    ```sh
+    ```console
     npm install dato-konverter
     ```
 
