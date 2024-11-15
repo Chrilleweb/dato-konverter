@@ -10,17 +10,8 @@ Dette projekt konverterer en JavaScript dato til UTC-tidszonen og formaterer dat
 
 ## Installation
 
-1. Klon repository:
     ```sh
-    git clone https://github.com/dit-brugernavn/dato-konverter.git
-    ```
-2. Naviger til projektmappen:
-    ```sh
-    cd dato-konverter
-    ```
-3. Installer afhængigheder:
-    ```sh
-    npm install
+    npm install dato-konverter
     ```
 
 ## Brug

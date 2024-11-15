@@ -1,7 +1,14 @@
-// Index filen
-function konveterDatotilUTC(date) {
+function konveterDatotilUTC(input) {
+    // Sørg for, at input er et Date-objekt
+    const date = input instanceof Date ? input : new Date(input);
+
+    // Hvis datoen stadig er ugyldig, kast en fejl
+    if (isNaN(date.getTime())) {
+        throw new Error('Invalid date provided to konveterDatotilUTC');
+    }
+
     // Hent forskellen i minutter mellem lokal tid og UTC
-    const timezoneOffset = date.getTimezoneOffset(); 
+    const timezoneOffset = date.getTimezoneOffset();
 
     // Juster tiden ved at tilføje timezone-offset til UTC
     const utcDate = new Date(date.getTime() - timezoneOffset * 60000);
@@ -16,6 +23,4 @@ function konveterDatotilUTC(date) {
 }
 
 module.exports = konveterDatotilUTC;
-
-
   
