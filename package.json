@@ -10,7 +10,7 @@
     "start": "node dist/test.js"
   },
   "author": "Chrilleweb",
-  "license": "ISC",
+  "license": "MIT",
   "keywords": [
     "dato",
     "konverter",
