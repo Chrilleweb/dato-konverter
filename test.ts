@@ -1,4 +1,4 @@
-const konveterDatotilUTC = require('./index');
+import { konveterDatotilUTC } from './index.js';
 
 const date = new Date();
 
@@ -10,4 +10,4 @@ console.log(vinterTid);
 const skudaar = konveterDatotilUTC('2024-02-29T00:00:00.000Z'); // 29. feb. 2024 kl. 01:00
 console.log(skudaar);
 
-console.log(konveterDatotilUTC(date)); 
+console.log(konveterDatotilUTC(date));

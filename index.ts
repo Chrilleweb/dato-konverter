@@ -1,4 +1,4 @@
-function konveterDatotilUTC(input) {
+export function konveterDatotilUTC(input: Date | string | number): string {
     // Sørg for, at input er et Date-objekt
     const date = input instanceof Date ? input : new Date(input);
 
@@ -21,6 +21,3 @@ function konveterDatotilUTC(input) {
 
     return `${day}. ${month} ${year} kl. ${hours}:${minutes}`;
 }
-
-module.exports = konveterDatotilUTC;
-  

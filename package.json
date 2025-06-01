@@ -1,19 +1,30 @@
 {
   "name": "dato-konverter",
-  "version": "1.0.4",
+  "version": "1.1.0",
+  "type": "module",
   "description": "Denne pakke konverterer en JavaScript dato til UTC-tidszonen og formaterer datoen i et læsbart dansk format som '13. okt. 2024 kl.15:54'. Den tager en standard JavaScript Date-objekt som input og returnerer en streng med datoen og tiden i UTC, formateret som dag, måned, år og klokkeslæt.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node dist/test.js"
   },
   "author": "Chrilleweb",
   "license": "ISC",
-  "keywords": ["dato", "konverter", "utc", "format"],
+  "keywords": [
+    "dato",
+    "konverter",
+    "utc",
+    "format"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/Chrilleweb/dato-konverter"
   },
   "engines": {
     "node": ">=14.x"
+  },
+  "dependencies": {
+    "typescript": "^5.8.3"
   }
 }
