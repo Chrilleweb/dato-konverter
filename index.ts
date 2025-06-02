@@ -11,6 +11,59 @@ function parseDate(input: Date | string | number): Date {
 }
 
 /**
+ * Returnerer en dansk formateret dato med fleksible valg.
+ * @param input En dato som Date, string eller timestamp.
+ * @param opts Indstillinger for visning.
+ * - weekday: true/false — skal ugedag vises?
+ * - weekdayFormat: "short"/"long"
+ * - monthFormat: "short"/"long"
+ * - year: true/false — skal år vises? (default: true)
+ * - time: true/false — skal klokkeslæt vises?
+ * @throws Fejl hvis datoen er ugyldig.
+ * @example
+ * formatDanishDate('2024-06-15T12:00:00Z', { weekday: true, year: false, time: true, includeKl: false });
+ * // => "lør. 15. jun. 14.00"
+ */
+export function formatDanishDate(
+  input: Date | string | number,
+  opts?: {
+    weekday?: boolean;
+    weekdayFormat?: "short" | "long";
+    monthFormat?: "short" | "long";
+    year?: boolean;
+    time?: boolean;
+    includeKl?: boolean;
+  }
+): string {
+  const date = parseDate(input);
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: opts?.weekday ? opts.weekdayFormat || "short" : undefined,
+    day: "2-digit",
+    month: opts?.monthFormat || "short",
+    year: opts?.year !== false ? "numeric" : undefined,
+    timeZone: "Europe/Copenhagen",
+  };
+
+  const datePart = date.toLocaleDateString("da-DK", options);
+  const timePart = opts?.time
+    ? date.toLocaleTimeString("da-DK", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+        timeZone: "Europe/Copenhagen",
+      })
+    : "";
+
+    const spacer = timePart
+    ? opts?.includeKl === false
+      ? ` ${timePart}`
+      : ` kl. ${timePart}`
+    : "";
+
+  return `${datePart}${spacer}`;
+}
+
+/**
  * Returnerer en dansk formateret ugedag, dato og klokkeslæt, fx: "lør. 15. jun. 2024 kl. 14.00".
  * @param input En dato som Date, string eller timestamp.
  * @param opts Valgfrit - brug `{ long: true }` for fulde måneds og ugedagsnavne. F.eks: "lørdag den 15. juni 2024 kl. 14.00".

@@ -101,3 +101,10 @@ const isItTomorrow = danishIsTomorrow(date); // false
 const isItTomorrowTrue = danishIsTomorrow(new Date(Date.now() + 24 * 60 * 60 * 1000)); // true, hvis det er i morgen
 console.log(isItTomorrow); // false, da det ikke er i morgen
 console.log(isItTomorrowTrue); // true, hvis det er i morgen
+
+console.log('Formatér dansk dato med valgfri ugedag og tid');
+import { formatDanishDate } from './index.js';
+const formattedDate = formatDanishDate('2024-06-15T12:00:00.000Z');
+const formattedDateLong = formatDanishDate('2024-06-15T12:00:00.000Z', { weekday: true, weekdayFormat: 'long', monthFormat: 'long', time: true });
+console.log(formattedDate);
+console.log(formattedDateLong);
