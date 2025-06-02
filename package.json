@@ -26,7 +26,13 @@
     "format",
     "danish",
     "weeknumber",
-    "date-utils"
+    "date-utils",
+    "ugedag",
+    "ugenummer",
+    "klokkeslæt",
+    "tid",
+    "weekend",
+    "datetime"
   ],
   "repository": {
     "type": "git",
