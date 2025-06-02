@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "types": ["vitest/globals"],
     "target": "ES2022",
     "module": "ESNext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "Node",
     "outDir": "dist",
+    "declaration": true,
+    "declarationDir": "dist",
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "include": ["*.ts"]
+  "include": ["index.ts", "examples.ts"]
 }

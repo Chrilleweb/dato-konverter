@@ -1,3 +1,5 @@
+// Dette er kun til manuelle eksempler og visuel test – ikke automatiseret test
+
 const date = new Date();
 
 console.log('dansk dato, tid og ugedag');
