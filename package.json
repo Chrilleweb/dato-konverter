@@ -5,7 +5,7 @@
   "description": "Denne pakke konverterer en JavaScript dato til dansk tidszone og formaterer datoen i et læsbart dansk format som fx '13. okt. 2024 kl.15:54'. Den tager en standard JavaScript Date-objekt som input og returnerer en streng med datoen og tiden, formateret som dag, måned, år og klokkeslæt. Der er flere forskellige formateringsmuligheder, der kan vælges.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "build": "tsc",
     "start": "node dist/test.js"
   },
@@ -26,5 +26,8 @@
   },
   "dependencies": {
     "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.0"
   }
 }
