@@ -1,23 +1,64 @@
-export function konveterDatotilUTC(input: Date | string | number): string {
-    // Sørg for, at input er et Date-objekt
-    const date = input instanceof Date ? input : new Date(input);
+export function danishDateAndTime(
+  input: Date | string | number,
+  opts?: { longMonth?: boolean }
+): string {
+  const date = input instanceof Date ? input : new Date(input);
 
-    // Hvis datoen stadig er ugyldig, kast en fejl
-    if (isNaN(date.getTime())) {
-        throw new Error('Invalid date provided to konveterDatotilUTC');
-    }
+  if (isNaN(date.getTime())) {
+    throw new Error('Invalid date');
+  }
 
-    // Hent forskellen i minutter mellem lokal tid og UTC
-    const timezoneOffset = date.getTimezoneOffset();
+  const monthFormat = opts?.longMonth ? 'long' : 'short';
 
-    // Juster tiden ved at tilføje timezone-offset til UTC
-    const utcDate = new Date(date.getTime() - timezoneOffset * 60000);
+  const datePart = date.toLocaleDateString('da-DK', {
+    day: '2-digit',
+    month: monthFormat,
+    year: 'numeric',
+    timeZone: 'Europe/Copenhagen',
+  });
 
-    const year = utcDate.getUTCFullYear();
-    const month = utcDate.toLocaleString('da-DK', { month: 'short' });
-    const day = String(utcDate.getUTCDate()).padStart(2, '0');
-    const hours = String(utcDate.getUTCHours()).padStart(2, '0');
-    const minutes = String(utcDate.getUTCMinutes()).padStart(2, '0');
+  const timePart = date.toLocaleTimeString('da-DK', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+    timeZone: 'Europe/Copenhagen',
+  });
 
-    return `${day}. ${month} ${year} kl. ${hours}:${minutes}`;
+  return `${datePart} kl. ${timePart}`;
+}
+
+export function danishTime (
+  input: Date | string | number
+): string {
+  const date = input instanceof Date ? input : new Date(input);
+
+  if (isNaN(date.getTime())) {
+    throw new Error('Invalid date');
+  }
+
+  return date.toLocaleTimeString('da-DK', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+    timeZone: 'Europe/Copenhagen',
+  });
+}
+export function danishDate (
+  input: Date | string | number,
+  opts?: { longMonth?: boolean }
+): string {
+  const date = input instanceof Date ? input : new Date(input);
+
+  if (isNaN(date.getTime())) {
+    throw new Error('Invalid date');
+  }
+
+  const monthFormat = opts?.longMonth ? 'long' : 'short';
+
+  return date.toLocaleDateString('da-DK', {
+    day: '2-digit',
+    month: monthFormat,
+    year: 'numeric',
+    timeZone: 'Europe/Copenhagen',
+  });
 }
