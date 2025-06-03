@@ -7,34 +7,10 @@ Understøtter formater som `15. okt. 2024 kl. 13.00`, ugedag, ugenummer, weekend
 
 ---
 
-## Funktioner
-
-- Korrekt dansk datoformatering med tidszone (`Europe/Copenhagen`)
-- Ugedag i kort/lang form (`tir.` / `tirsdag`)
-- Klokkeslæt med/uden `kl.` (f.eks. `kl. 14.00 eller bare 14.00`)
-- Mulighed for at fjerne år
-- Ugenummerberegning (ISO 8601)
-- Weekend-tjek (lørdag/søndag)
-- Tjek for om en given dato er “i dag” og “i morgen”
-
----
-
 ## Installation
 
 ```bash
 npm install dato-konverter
-```
-
-eller
-
-```bash
-yarn add dato-konverter
-```
-
-eller
-
-```bash
-pnpm add dato-konverter
 ```
 
 ## Brug

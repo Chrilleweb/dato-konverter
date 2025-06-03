@@ -20,7 +20,7 @@ function parseDate(input: Date | string | number): Date {
  * - year: true/false — skal år vises? (default: true)
  * - time: true/false — skal klokkeslæt vises?
  * - includeKl: true/false — skal "kl." inkluderes i tidsformatet? (default: true)
- * - leadingZero: true/false — skal dag og måned have foranstillet nul? (default: true)
+ * - leadingZero: true/false — skal dag have foranstillet nul? (default: true)
  * @throws Fejl hvis datoen er ugyldig.
  * @example
  * formatDanishDate('2024-06-15T12:00:00Z', { weekday: true, year: false, time: true, includeKl: false });
