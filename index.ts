@@ -6,7 +6,7 @@
  */
 function parseDate(input: Date | string | number): Date {
   const date = input instanceof Date ? input : new Date(input);
-  if (isNaN(date.getTime())) throw new Error("Invalid date");
+  if (isNaN(date.getTime())) throw new Error(`Invalid date input: ${input}`);
   return date;
 }
 
@@ -61,119 +61,6 @@ export function formatDanishDate(
     : "";
 
   return `${datePart}${spacer}`;
-}
-
-/**
- * Returnerer en dansk formateret ugedag, dato og klokkeslæt, fx: "lør. 15. jun. 2024 kl. 14.00".
- * @param input En dato som Date, string eller timestamp.
- * @param opts Valgfrit - brug `{ long: true }` for fulde måneds og ugedagsnavne. F.eks: "lørdag den 15. juni 2024 kl. 14.00".
- * @throws Fejl hvis datoen er ugyldig.
- * @returns En formateret ugedag, dato og klokkeslæt i dansk format.
- * @example
- * danishFullDateTime('2024-06-15T12:00:00Z'); // "lør. 15. jun. 2024 kl. 14.00"
- * danishFullDateTime('2024-06-15T12:00:00Z', { long: true }); // "lørdag den 15. juni 2024 kl. 14.00"
- */
-export function danishFullDateTime(
-  input: Date | string | number,
-  opts?: { long?: boolean }
-): string {
-  const date = parseDate(input);
-  const monthFormat = opts?.long ? "long" : "short";
-  const weekdayFormat = opts?.long ? "long" : "short";
-  const datePart = date.toLocaleDateString("da-DK", {
-    weekday: weekdayFormat,
-    day: "2-digit",
-    month: monthFormat,
-    year: "numeric",
-    timeZone: "Europe/Copenhagen",
-  });
-  const timePart = date.toLocaleTimeString("da-DK", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-    timeZone: "Europe/Copenhagen",
-  });
-  return `${datePart} kl. ${timePart}`;
-}
-
-/**
- * Returnerer en dansk formateret dato og klokkeslæt, fx: "15. okt. 2024 kl. 13.00".
- * @param input En dato som Date, string eller timestamp.
- * @param opts Valgfrit - brug `{ long: true }` for fulde månedsnavne. F.eks: "15. oktober 2024 kl. 13.00".
- * @throws Fejl hvis datoen er ugyldig.
- * @returns En formateret dato og klokkeslæt i dansk format.
- * @example
- * danishDateAndTime('2024-06-15T12:00:00Z'); // "15. jun. 2024 kl. 14.00"
- * danishDateAndTime('2024-06-15T12:00:00Z', { long: true }); // "15. juni 2024 kl. 14.00"
- */
-export function danishDateAndTime(
-  input: Date | string | number,
-  opts?: { long?: boolean }
-): string {
-  const date = parseDate(input);
-
-  const monthFormat = opts?.long ? "long" : "short";
-
-  const datePart = date.toLocaleDateString("da-DK", {
-    day: "2-digit",
-    month: monthFormat,
-    year: "numeric",
-    timeZone: "Europe/Copenhagen",
-  });
-
-  const timePart = date.toLocaleTimeString("da-DK", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-    timeZone: "Europe/Copenhagen",
-  });
-
-  return `${datePart} kl. ${timePart}`;
-}
-
-/**
- * Returnerer en dansk formateret klokkeslæt, fx: "14.00".
- * @param input En dato som Date, string eller timestamp.
- * @throws Fejl hvis datoen er ugyldig.
- * @returns En formateret klokkeslæt i dansk format.
- * @example
- * danishTime('2024-06-15T12:00:00Z'); // "14.00"
- */
-export function danishTime(input: Date | string | number): string {
-  const date = parseDate(input);
-
-  return date.toLocaleTimeString("da-DK", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-    timeZone: "Europe/Copenhagen",
-  });
-}
-
-/**
- * Returnerer en dansk formateret dato, fx: "15. jun. 2024".
- * @param input En dato som Date, string eller timestamp.
- * @param opts Valgfrit - brug `{ long: true }` for fulde månedsnavne. F.eks: "15. juni 2024".
- * @throws Fejl hvis datoen er ugyldig.
- * @returns En formateret dato i dansk format.
- * @example
- * danishDate('2024-06-15T12:00:00Z'); // "15. jun. 2024"
- * danishDate('2024-06-15T12:00:00Z', { long: true }); // "15. juni 2024"
- */
-export function danishDate(
-  input: Date | string | number,
-  opts?: { long?: boolean }
-): string {
-  const date = parseDate(input);
-
-  const monthFormat = opts?.long ? "long" : "short";
-
-  return date.toLocaleDateString("da-DK", {
-    day: "2-digit",
-    month: monthFormat,
-    year: "numeric",
-    timeZone: "Europe/Copenhagen",
-  });
 }
 
 /**
