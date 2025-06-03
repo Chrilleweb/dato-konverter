@@ -1,32 +1,96 @@
-# 🕒 Dato Konverter
+# dato-konverter
 
-Et simpelt værktøj der konverterer en JavaScript-dato til UTC og formaterer den i dansk format, fx:  
-**`13. okt. 2024 kl. 15:54`**
+Dansk datoformat til JavaScript med korrekt tidszone (Europe/Copenhagen).  
+Understøtter formater som `15. okt. 2024 kl. 13.00`, ugedag, ugenummer, weekend-detektion m.m.
 
-## ✨ Funktioner
+[![npm version](https://badge.fury.io/js/dato-konverter.svg)](https://www.npmjs.com/package/dato-konverter)
 
-- ✅ Konverterer datoer til UTC-format
-- 🇩🇰 Viser dato i dansk formatering
-- 🧩 Let at integrere i ethvert projekt
-- 📦 TypeScript support
+---
 
-## 📦 Installation
+## Funktioner
+
+- Korrekt dansk datoformatering med tidszone (`Europe/Copenhagen`)
+- Ugedag i kort/lang form (`tir.` / `tirsdag`)
+- Klokkeslæt med/uden `kl.` (f.eks. `kl. 14.00 eller bare 14.00`)
+- Mulighed for at fjerne år
+- Ugenummerberegning (ISO 8601)
+- Weekend-tjek (lørdag/søndag)
+- Tjek for om en given dato er “i dag” og “i morgen”
+
+---
+
+## Installation
 
 ```bash
 npm install dato-konverter
 ```
 
-## 🚀 Brug
-
-For at konvertere en dato, importér pakken og brug den som følger:
+eller
 
 ```bash
-import { konveterDatotilUTC } from 'dato-konverter';
-
-const date = new Date();
-console.log(konveterDatotilUTC(dato));
-// Output: fx "01. jun. 2025 kl. 14:12"
+yarn add dato-konverter
 ```
 
-## License 
+eller
+
+```bash
+pnpm add dato-konverter
+```
+
+## Brug
+
+```js
+import { formatDanishDate } from "dato-konverter";
+
+const newDate = formatDanishDate("2024-06-03T20:04:00Z");
+// -> 03. jun. 2024
+
+```
+
+## Brug med fleksibel opsætning
+
+```js
+import { formatDanishDate } from "dato-konverter";
+
+formatDanishDate("2024-06-03T20:04:00Z", {
+  weekday: true,
+  time: true,
+  weekdayFormat: "short",
+  monthFormat: "short",
+  year: false,
+  includeKl: false,
+  leadingZero: false,
+});
+// -> "man. 3. jun. 22.04"
+```
+
+## API Reference
+
+### formatDanishDate(input, options?)
+
+### Formatterer en dato til dansk format.
+
+| Option          | Type      | Default  | Beskrivelse                 |                      |
+| --------------- | --------- | -------- | --------------------------- | -------------------- |
+| `weekday`       | `boolean` | `false`  | Vis ugedag                  |                      |
+| `weekdayFormat` | \`"short" | "long"\` | `"short"`                   | Kort/fuld ugedag     |
+| `monthFormat`   | \`"short" | "long"\` | `"short"`                   | Kort/fuld månedsnavn |
+| `year`          | `boolean` | `true`   | Vis årstal                  |                      |
+| `time`          | `boolean` | `false`  | Tilføj klokkeslæt           |                      |
+| `includeKl`     | `boolean` | `true`   | Om `kl.` skal vises ved tid |                      |
+
+### Eksempel:
+
+```bash
+formatDanishDate("2024-06-15T12:00:00Z", {
+  weekday: true,
+  time: true,
+  weekdayFormat: "long",
+  monthFormat: "long"
+});
+// -> "lørdag den 15. juni 2024 kl. 14.00"
+```
+
+## License
+
 MIT

@@ -65,3 +65,18 @@ const date1 = new Date(timestamp);
 
 console.log(date1.toISOString()); // UTC tid
 console.log(date1.toLocaleString("da-DK", { timeZone: "Europe/Copenhagen" })); // Dansk tid
+
+const testLeadingZero = formatDanishDate("2024-06-03T20:04:00Z", {
+  weekday: true,
+  time: true,
+  weekdayFormat: "short",
+  monthFormat: "short",
+  year: false,
+  includeKl: false,
+  leadingZero: false,
+});
+
+console.log(testLeadingZero);
+
+const newDate = formatDanishDate("2024-06-03T20:04:00Z");
+console.log(newDate)

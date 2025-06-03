@@ -19,6 +19,8 @@ function parseDate(input: Date | string | number): Date {
  * - monthFormat: "short"/"long"
  * - year: true/false — skal år vises? (default: true)
  * - time: true/false — skal klokkeslæt vises?
+ * - includeKl: true/false — skal "kl." inkluderes i tidsformatet? (default: true)
+ * - leadingZero: true/false — skal dag og måned have foranstillet nul? (default: true)
  * @throws Fejl hvis datoen er ugyldig.
  * @example
  * formatDanishDate('2024-06-15T12:00:00Z', { weekday: true, year: false, time: true, includeKl: false });
@@ -33,12 +35,13 @@ export function formatDanishDate(
     year?: boolean;
     time?: boolean;
     includeKl?: boolean;
+    leadingZero?: boolean;
   }
 ): string {
   const date = parseDate(input);
   const options: Intl.DateTimeFormatOptions = {
     weekday: opts?.weekday ? opts.weekdayFormat || "short" : undefined,
-    day: "2-digit",
+    day: opts?.leadingZero === false ? "numeric" : "2-digit", 
     month: opts?.monthFormat || "short",
     year: opts?.year !== false ? "numeric" : undefined,
     timeZone: "Europe/Copenhagen",

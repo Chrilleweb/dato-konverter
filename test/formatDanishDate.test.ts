@@ -123,4 +123,13 @@ describe("formatDanishDate", () => {
     const result = formatDanishDate("2024-06-15T22:00:00Z", { time: true }); // 00:00 DK
     expect(result).toBe("16. jun. 2024 kl. 00.00");
   });
+
+  it("should format date without leading zero", () => {
+    const result = formatDanishDate("2024-06-05T12:00:00Z", {
+      weekday: true,
+      time: true,
+      leadingZero: false,
+    });
+    expect(result).toBe("ons. 5. jun. 2024 kl. 14.00");
+  });
 });
