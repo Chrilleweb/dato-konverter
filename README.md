@@ -4,6 +4,7 @@ Dansk datoformat til JavaScript med korrekt tidszone (Europe/Copenhagen).
 Understøtter formater som `15. okt. 2024 kl. 13.00`, ugedag, ugenummer, weekend-detektion m.m.
 
 [![npm version](https://badge.fury.io/js/dato-konverter.svg)](https://www.npmjs.com/package/dato-konverter)
+[![npm downloads](https://img.shields.io/npm/dt/dato-konverter.svg)](https://www.npmjs.com/package/dato-konverter)
 
 ---
 
