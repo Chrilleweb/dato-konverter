@@ -41,7 +41,7 @@ export function formatDanishDate(
   const date = parseDate(input);
   const options: Intl.DateTimeFormatOptions = {
     weekday: opts?.weekday ? opts.weekdayFormat || "short" : undefined,
-    day: opts?.leadingZero === false ? "numeric" : "2-digit", 
+    day: opts?.leadingZero === false ? "numeric" : "2-digit",
     month: opts?.monthFormat || "short",
     year: opts?.year !== false ? "numeric" : undefined,
     timeZone: "Europe/Copenhagen",
@@ -57,7 +57,7 @@ export function formatDanishDate(
       })
     : "";
 
-    const spacer = timePart
+  const spacer = timePart
     ? opts?.includeKl === false
       ? ` ${timePart}`
       : ` kl. ${timePart}`
@@ -168,4 +168,79 @@ export function danishIsTomorrow(input: Date | string | number): boolean {
   });
 
   return inputStr === tomorrowStr;
+}
+
+/**
+ * Formaterer en dato til en relativ dansk dato-streng.
+ * @param input En dato som Date, string eller timestamp.
+ * @throws Fejl hvis datoen er ugyldig.
+ * @returns En formateret relativ dato-streng i dansk format.
+ * @example
+ * formatRelativeDanishDate('2024-06-12T07:58:00Z'); // "09.58"
+ * formatRelativeDanishDate('2024-06-11T07:58:00Z'); // "i går 09.58"
+ * formatRelativeDanishDate('2024-06-10T07:00:00Z'); // "mandag 10.06"
+ * formatRelativeDanishDate('2024-05-27T08:41:00Z'); // "27.05 10.41"
+ */
+export function formatRelativeDanishDate(
+  input: Date | string | number
+): string {
+  const date = parseDate(input);
+  const now = new Date();
+
+  const cphOpts = { timeZone: "Europe/Copenhagen" };
+
+  const todayStr = now.toLocaleDateString("da-DK", cphOpts);
+  const inputStr = date.toLocaleDateString("da-DK", cphOpts);
+
+  const time = date
+    .toLocaleTimeString("da-DK", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      ...cphOpts,
+    })
+    .replace(":", ".");
+
+  // I dag
+  if (inputStr === todayStr) return time;
+
+  // I går
+  const yesterday = new Date(now);
+  yesterday.setDate(now.getDate() - 1);
+  const yesterdayStr = yesterday.toLocaleDateString("da-DK", cphOpts);
+
+  if (inputStr === yesterdayStr) return `i går ${time}`;
+
+  // Dato-forskel i dage
+  const startOfNow = new Date(now);
+  startOfNow.setHours(0, 0, 0, 0);
+
+  const startOfDate = new Date(date);
+  startOfDate.setHours(0, 0, 0, 0);
+
+  const diffInMs = startOfNow.getTime() - startOfDate.getTime();
+  const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+
+  if (diffInDays > 0 && diffInDays <= 6) {
+    const weekday = danishWeekday(date);
+    const dayMonth = date.toLocaleDateString("da-DK", {
+      day: "2-digit",
+      month: "2-digit",
+      timeZone: "Europe/Copenhagen",
+    });
+    return `${weekday} ${dayMonth}`;
+  }
+
+  // Ældre end 7 dage – vis dag.måned klokkeslæt
+  return date
+    .toLocaleString("da-DK", {
+      day: "2-digit",
+      month: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      ...cphOpts,
+    })
+    .replace(",", "")
+    .replace(":", ".");
 }
