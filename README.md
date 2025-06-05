@@ -53,11 +53,13 @@ const date = formatDanishDate("2024-06-03T20:04:00Z", {
 Pakken inkluderer også:
 
 - `formatRelativeDanishDate`
+- `formatDanishRange`
 - `danishWeekday`
 - `danishWeekNumber`
 - `danishIsWeekend`
 - `danishIsToday`
 - `danishIsTomorrow`
+- `danishIsYesterday`
 
 Alle funktioner understøtter `Date`, `string` og `timestamp` som input.  
 Se JSDoc-kommentarer i koden for detaljer og eksempler.

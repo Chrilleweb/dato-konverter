@@ -171,6 +171,30 @@ export function danishIsTomorrow(input: Date | string | number): boolean {
 }
 
 /**
+ * Tjekker om en given dato er i går i dansk tidszone.
+ * @param input En dato som Date, string eller timestamp.
+ * @throws Fejl hvis datoen er ugyldig.
+ * @returns En boolean der angiver om datoen er i går.
+ * @example
+ * danishIsYesterday('2024-06-14T12:00:00Z'); // true (hvis i dag er 15. juni 2024)
+ */
+export function danishIsYesterday(input: Date | string | number): boolean {
+  const date = parseDate(input);
+  const now = new Date();
+
+  const cphOpts = { timeZone: 'Europe/Copenhagen' };
+
+  const inputStr = date.toLocaleDateString('da-DK', cphOpts);
+
+  const yesterday = new Date(now);
+  yesterday.setDate(now.getDate() - 1);
+
+  const yesterdayStr = yesterday.toLocaleDateString('da-DK', cphOpts);
+
+  return inputStr === yesterdayStr;
+}
+
+/**
  * Formaterer en dato til en relativ dansk dato-streng.
  * @param input En dato som Date, string eller timestamp.
  * @throws Fejl hvis datoen er ugyldig.
@@ -243,4 +267,116 @@ export function formatRelativeDanishDate(
     })
     .replace(",", "")
     .replace(":", ".");
+}
+
+/**
+ * Formaterer et dansk dato/tids-interval som en læsbar streng.
+ * - Viser klokkeslæt hvis tiderne er med.
+ * - Fjerner gentagelse af dato hvis samme dag.
+ * @param from Startdato (Date, string eller timestamp)
+ * @param to Slutdato (Date, string eller timestamp)
+ * @throws Fejl hvis datoerne er ugyldige.
+ * @returns En dansk formateret datointerval-streng.
+ * @example
+ * formatDanishRange('2024-06-01T10:00', '2024-06-01T14:30');
+ * // => "1. jun. 10.00 – 14.30"
+ *
+ * formatDanishRange('2024-06-01', '2024-06-03');
+ * // => "1. – 3. jun."
+ */
+export function formatDanishRange(
+  from: Date | string | number,
+  to: Date | string | number
+): string {
+  const fromDate = parseDate(from);
+  const toDate = parseDate(to);
+
+  const timeZone = 'Europe/Copenhagen';
+
+  const sameDay =
+    fromDate.toLocaleDateString('da-DK', { timeZone }) ===
+    toDate.toLocaleDateString('da-DK', { timeZone });
+
+  const sameDayMonth =
+    fromDate.getDate() === toDate.getDate() &&
+    fromDate.getMonth() === toDate.getMonth();
+
+  const sameMonthAndYear =
+    fromDate.getMonth() === toDate.getMonth() &&
+    fromDate.getFullYear() === toDate.getFullYear();
+
+  const fromTime = fromDate
+    .toLocaleTimeString('da-DK', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+      timeZone,
+    })
+    .replace(':', '.');
+
+  const toTime = toDate
+    .toLocaleTimeString('da-DK', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+      timeZone,
+    })
+    .replace(':', '.');
+
+  // Samme dag → vis klokkeslæt
+  if (sameDay) {
+    const dayMonth = fromDate.toLocaleDateString('da-DK', {
+      day: 'numeric',
+      month: 'short',
+      timeZone,
+    });
+    return `${dayMonth} ${fromTime} – ${toTime}`;
+  }
+
+  // Samme dag og måned, men forskelligt år
+  if (sameDayMonth && fromDate.getFullYear() !== toDate.getFullYear()) {
+    const fromFull = fromDate.toLocaleDateString('da-DK', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      timeZone,
+    });
+    const toFull = toDate.toLocaleDateString('da-DK', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      timeZone,
+    });
+    return `${fromFull} – ${toFull}`;
+  }
+
+  // Samme måned og år
+  if (sameMonthAndYear) {
+    const fromDay = fromDate.toLocaleDateString('da-DK', {
+      day: 'numeric',
+      timeZone,
+    });
+    const toDayMonth = toDate.toLocaleDateString('da-DK', {
+      day: 'numeric',
+      month: 'short',
+      timeZone,
+    });
+    return `${fromDay} – ${toDayMonth}`;
+  }
+
+  // Faldback: vis begge fuldt
+  const fromFull = fromDate.toLocaleDateString('da-DK', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    timeZone,
+  });
+  const toFull = toDate.toLocaleDateString('da-DK', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    timeZone,
+  });
+
+  return `${fromFull} – ${toFull}`;
 }
