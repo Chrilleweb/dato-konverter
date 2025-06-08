@@ -119,7 +119,14 @@ export function danishWeekNumber(input: Date | string | number): number {
  */
 export function danishIsWeekend(input: Date | string | number): boolean {
   const date = parseDate(input);
-  const day = date.getDay(); // 0 = søndag, 6 = lørdag
+
+  // Konverter datoen til dansk tidszone for at få korrekt ugedag
+  const cphString = date.toLocaleString('sv-SE', {
+    timeZone: 'Europe/Copenhagen',
+  });
+  const cphDate = new Date(cphString);
+
+  const day = cphDate.getDay(); // 0 = søndag, 6 = lørdag
   return day === 0 || day === 6;
 }
 
